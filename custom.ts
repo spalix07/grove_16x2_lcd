@@ -42,63 +42,47 @@ namespace I2C_LCD1602 {
         set(d << 4)
     }
 
-    // auto get LCD address
-    function AutoAddr() {
-        let k = true
-        let addr = 0x20
-        let d1 = 0, d2 = 0
-        while (k && (addr < 0x28)) {
-            pins.i2cWriteNumber(addr, -1, NumberFormat.Int32LE)
-            d1 = pins.i2cReadNumber(addr, NumberFormat.Int8LE) % 16
-            pins.i2cWriteNumber(addr, 0, NumberFormat.Int16LE)
-            d2 = pins.i2cReadNumber(addr, NumberFormat.Int8LE)
-            if ((d1 == 7) && (d2 == 0)) k = false
-            else addr += 1
-        }
-        if (!k) return addr
-
-        addr = 0x38
-        while (k && (addr < 0x40)) {
-            pins.i2cWriteNumber(addr, -1, NumberFormat.Int32LE)
-            d1 = pins.i2cReadNumber(addr, NumberFormat.Int8LE) % 16
-            pins.i2cWriteNumber(addr, 0, NumberFormat.Int16LE)
-            d2 = pins.i2cReadNumber(addr, NumberFormat.Int8LE)
-            if ((d1 == 7) && (d2 == 0)) k = false
-            else addr += 1
-        }
-        if (!k) return addr
-        else return 0
-
-    }
+  
 
     /**
      * initial LCD, set I2C address. Address is 62 (0x3e)
      * @param Addr is i2c address for LCD, eg: 62. 
      */
-    //% blockId="I2C_LCD1620_SET_ADDRESS" block="LCD initialize with Address %addr"
+    //% blockId="I2C_LCD1620_SET_ADDRESS" block="LCD initialize with Address $addr"
     //% weight=100 blockGap=8
     //% addr.defl=0x3e
-    export function LcdInit(Addr: number) {
-        i2cAddr = Addr
-        BK = 8
-        RS = 0
+    export function lcdInit(Addr: number) {
+        let buf2 = Buffer.create(2)
 
+        i2cAddr = Addr
+     
         basic.pause(20) // Attente > 15ms
         // 8bits mode, 2Lines mode, 5x8 dots
-        pins.i2cWriteNumber(i2cAddr, 0x80, NumberFormat.Int8LE)
-        pins.i2cWriteNumber(i2cAddr, 0x20 | 0x10 | 0x08 | 0x00, NumberFormat.Int8LE)
+        //pins.i2cWriteNumber(i2cAddr, 0x80, NumberFormat.Int8LE)
+        //pins.i2cWriteNumber(i2cAddr, 0x20 | 0x10 | 0x08 | 0x00, NumberFormat.Int8LE)
+        buf2 = Buffer.fromArray([0x80, 0x20 | 0x10 | 0x08 | 0x00])
+        pins.i2cWriteBuffer(i2cAddr, buf2, false)
         basic.pause(1) // Attente > 39us
+
         // Display ON, Cursor ON, Blink OFF
-        pins.i2cWriteNumber(i2cAddr, 0x80, NumberFormat.Int8LE)
-        pins.i2cWriteNumber(i2cAddr, 0x08 | 0x04 | 0x02 | 0x00, NumberFormat.Int8LE)
+        //pins.i2cWriteNumber(i2cAddr, 0x80, NumberFormat.Int8LE)
+        //pins.i2cWriteNumber(i2cAddr, 0x08 | 0x04 | 0x02 | 0x00, NumberFormat.Int8LE)
+        buf2 = Buffer.fromArray([0x80, 0x08 | 0x04 | 0x02 | 0x00])
+        pins.i2cWriteBuffer(i2cAddr, buf2, false)
         basic.pause(1) // Attente > 39us
+
         // Clear
-        pins.i2cWriteNumber(i2cAddr, 0x80, NumberFormat.Int8LE)
-        pins.i2cWriteNumber(i2cAddr, 0x01, NumberFormat.Int8LE)
+        //pins.i2cWriteNumber(i2cAddr, 0x80, NumberFormat.Int8LE)
+        //pins.i2cWriteNumber(i2cAddr, 0x01, NumberFormat.Int8LE)
+        buf2 = Buffer.fromArray([0x80, 0x01])
+        pins.i2cWriteBuffer(i2cAddr, buf2, false)
         basic.pause(2) // Attente > 1.53ms
+
         // Entry left
-        pins.i2cWriteNumber(i2cAddr, 0x80, NumberFormat.Int8LE)
-        pins.i2cWriteNumber(i2cAddr, 0x04 | 0x02 | 0x00, NumberFormat.Int8LE)
+        //pins.i2cWriteNumber(i2cAddr, 0x80, NumberFormat.Int8LE)
+        //pins.i2cWriteNumber(i2cAddr, 0x04 | 0x02 | 0x00, NumberFormat.Int8LE)
+        buf2 = Buffer.fromArray([0x80, 0x04 | 0x02 | 0x00])
+        pins.i2cWriteBuffer(i2cAddr, buf2, false)
     }
 
 /*
@@ -129,13 +113,18 @@ namespace I2C_LCD1602 {
     //% x.min=0 x.max=15
     //% y.min=0 y.max=1
     export function setCursor (x: number, y: number): void {
+        let buf2 = Buffer.create(2)
+
         if (y==0)
             x = x | 0x80
         else
             x = x | 0xc0
         
-        pins.i2cWriteNumber(i2cAddr, 0x80, NumberFormat.Int8LE)
-        pins.i2cWriteNumber(i2cAddr, x, NumberFormat.Int8LE)
+        //ins.i2cWriteNumber(i2cAddr, 0x80, NumberFormat.Int8LE)
+        //pins.i2cWriteNumber(i2cAddr, x, NumberFormat.Int8LE)
+        buf2 = Buffer.fromArray([0x80, x])
+        pins.i2cWriteBuffer(i2cAddr, buf2, false)
+
     }
 
    
@@ -164,13 +153,16 @@ namespace I2C_LCD1602 {
      */
     //% blockId="I2C_LCD1620_SHOW_STRING" block="show string %s"
     //% weight=90 blockGap=8
-    export function ShowString(s: string): void {
-     
+    export function showString(s: string): void {
+        let buf2 = Buffer.create(2)
+
         for (let i = 0; i < s.length; i++) {
             // dat(s.charCodeAt(i))
             // i2c.write(0x3e, bytearray([0x40, c])
-            pins.i2cWriteNumber(i2cAddr, 0x40, NumberFormat.Int8LE)
-            pins.i2cWriteNumber(i2cAddr, s.charCodeAt(i), NumberFormat.Int8LE)
+            //pins.i2cWriteNumber(i2cAddr, 0x40, NumberFormat.Int8LE)
+            //pins.i2cWriteNumber(i2cAddr, s.charCodeAt(i), NumberFormat.Int8LE)
+            buf2 = Buffer.fromArray([0x40, s.charCodeAt(i)])
+            pins.i2cWriteBuffer(i2cAddr, buf2, false)
 
         }
     }
