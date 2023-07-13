@@ -69,7 +69,7 @@ namespace GROVE_I2C_LCD1602 {
      * initialize LCD, set I2C address : Address is 62 (0x3e)
      * @param Addr is i2c address for LCD, eg: 62
      */
-    //% blockId="GROVE_I2C_LCD1620_SET_ADDRESS" block="[LCD] initialize with Address $Addr"
+    //% blockId="GROVE_I2C_LCD1602_SET_ADDRESS" block="[LCD] initialize with Address $Addr"
     //% weight=100 blockGap=8
     //% Addr.defl=0x3e
     export function lcdInit(Addr: number) {
@@ -94,7 +94,7 @@ namespace GROVE_I2C_LCD1602 {
         smbus.writeByte(i2cAddr, 0x80, 0x04|0x02|0x00)
     }
 
-    //% blockId="GROVE_I2C_LCD1620_CLEAR_DISPLAY" block="[LCD] clear display"
+    //% blockId="GROVE_I2C_LCD1602_CLEAR_DISPLAY" block="[LCD] clear display"
     //% weight=90 blockGap=8
     export function clearDisplay(): void {
         smbus.writeByte(i2cAddr, 0x80, 0x01)
@@ -104,7 +104,7 @@ namespace GROVE_I2C_LCD1602 {
     /**
      * turn on/off LCD
      */
-    //% blockId="GROVE_I2C_LCD1620_TURN_ONOFF" block="[LCD] turn on/off"
+    //% blockId="GROVE_I2C_LCD1602_TURN_DISPLAY_ONOFF" block="[LCD] turn display $displayState"
     //% displayState.shadow = toggleOnOff
     //% displayState.defl=true
     //% weight=80 blockGap=8
