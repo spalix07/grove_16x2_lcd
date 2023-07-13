@@ -70,7 +70,6 @@ namespace GROVE_I2C_LCD1602 {
      * @param Addr is i2c address for LCD, eg: 62
      */
     //% blockId="GROVE_I2C_LCD1602_SET_ADDRESS" block="[LCD] initialize with Address $Addr"
-    //% weight=100 blockGap=8
     //% Addr.defl=0x3e
     export function lcdInit(Addr: number) {
         i2cAddr = Addr
@@ -95,7 +94,6 @@ namespace GROVE_I2C_LCD1602 {
     }
 
     //% blockId="GROVE_I2C_LCD1602_CLEAR_DISPLAY" block="[LCD] clear display"
-    //% weight=90 blockGap=8
     export function clearDisplay(): void {
         smbus.writeByte(i2cAddr, 0x80, 0x01)
         basic.pause(2) // Attente > 1.53ms
@@ -107,7 +105,6 @@ namespace GROVE_I2C_LCD1602 {
     //% blockId="GROVE_I2C_LCD1602_TURN_DISPLAY_ONOFF" block="[LCD] turn display $displayState"
     //% displayState.shadow = toggleOnOff
     //% displayState.defl=true
-    //% weight=80 blockGap=8
     export function turnDisplayOnOff(displayState: boolean): void {
         if (displayState)
             regCTRL |= 0x04
@@ -116,10 +113,6 @@ namespace GROVE_I2C_LCD1602 {
         
         smbus.writeByte(i2cAddr, 0x80, 0x08|regCTRL)
     }
-
-
-
-
 
     /**
          * show a string in LCD at given position
@@ -131,9 +124,7 @@ namespace GROVE_I2C_LCD1602 {
     //% s.defl="Hello"
     //% x.min=0 x.max=15
     //% y.min=0 y.max=1
-    //% weight=90 blockGap=8
     export function showString(s: string, x: number, y: number): void {
-    
         // Set cursor
         if (y == 0) x |= 0x80; else x |= 0xc0
         smbus.writeByte(i2cAddr, 0x80, x)
@@ -150,8 +141,7 @@ namespace GROVE_I2C_LCD1602 {
          * @param x is LCD column position, eg: 0
          * @param y is LCD row position, eg: 0
          */
-    //% blockId="GROVE_I2C_LCD1620_SHOW_NUMBER" block="[LCD] show number $n at |x $x |y $y"
-    //% weight=90 blockGap=8
+    //% blockId="GROVE_I2C_LCD1602_SHOW_NUMBER" block="[LCD] show number $n at |x $x |y $y"
     //% x.min=0 x.max=15
     //% y.min=0 y.max=1
     export function ShowNumber(n: number, x: number, y: number): void {
