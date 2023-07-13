@@ -72,7 +72,7 @@ namespace GROVE_I2C_LCD1602 {
     //% weight=100 blockGap=8
     //% addr.defl=0x3e
     export function lcdInit(Addr: number) {
-        let buf2 = Buffer.create(2)
+        //let buf2 = Buffer.create(2)
 
         i2cAddr = Addr
 
