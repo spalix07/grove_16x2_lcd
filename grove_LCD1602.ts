@@ -66,7 +66,7 @@ namespace GROVE_I2C_LCD1602 {
 
     /**
      * initial LCD, set I2C address : Address is 62 (0x3e)
-     * @param Addr is i2c address for LCD, eg: 62. 
+     * @param Addr is i2c address for LCD, eg: 62
      */
     //% blockId="GROVE_I2C_LCD1620_SET_ADDRESS" block="[Grove] LCD initialize with Address $Addr"
     //% weight=100 blockGap=8
