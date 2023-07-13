@@ -65,57 +65,38 @@ namespace GROVE_I2C_LCD1602 {
     let i2cAddr: number // 0x3E par défaut
 
     /**
-     * initial LCD, set I2C address : Address is 62 (0x3e)
+     * initialize LCD, set I2C address : Address is 62 (0x3e)
      * @param Addr is i2c address for LCD, eg: 62
      */
-    //% blockId="GROVE_I2C_LCD1620_SET_ADDRESS" block="[Grove] LCD initialize with Address $Addr"
+    //% blockId="GROVE_I2C_LCD1620_SET_ADDRESS" block="[LCD] initialize with Address $Addr"
     //% weight=100 blockGap=8
     //% Addr.defl=0x3e
     export function lcdInit(Addr: number) {
-        //let buf2 = Buffer.create(2)
-
         i2cAddr = Addr
 
         basic.pause(20) // Attente > 15ms
         // 8bits mode, 2Lines mode, 5x8 dots
-        //buf2 = Buffer.fromArray([0x80, 0x20 | 0x10 | 0x08 | 0x00])
-        //pins.i2cWriteBuffer(i2cAddr, buf2, false)
-        smbus.writeByte(i2cAddr, 0x80, 0x20 | 0x10 | 0x08 | 0x00)
+        smbus.writeByte(i2cAddr, 0x80, 0x20|0x10|0x08|0x00)
         basic.pause(1) // Attente > 39us
 
         // Display ON, Cursor ON, Blink OFF
-        //buf2 = Buffer.fromArray([0x80, 0x08 | 0x04 | 0x02 | 0x00])
-        //pins.i2cWriteBuffer(i2cAddr, buf2, false)
-        smbus.writeByte(i2cAddr, 0x80, 0x08 | 0x04 | 0x02 | 0x00)
+        smbus.writeByte(i2cAddr, 0x80, 0x08|0x04|0x02|0x00)
         basic.pause(1) // Attente > 39us
 
-        // Clear
-        //buf2 = Buffer.fromArray([0x80, 0x01])
-        //pins.i2cWriteBuffer(i2cAddr, buf2, false)
-        smbus.writeByte(i2cAddr, 0x80, 0x01)
-        basic.pause(2) // Attente > 1.53ms
+        // Clear display
+        //smbus.writeByte(i2cAddr, 0x80, 0x01)
+        //basic.pause(2) // Attente > 1.53ms
+        clearDisplay()
 
         // Entry left
-        //buf2 = Buffer.fromArray([0x80, 0x04 | 0x02 | 0x00])
-        //pins.i2cWriteBuffer(i2cAddr, buf2, false)
-        smbus.writeByte(i2cAddr, 0x80, 0x04 | 0x02 | 0x00)
+        smbus.writeByte(i2cAddr, 0x80, 0x04|0x02|0x00)
     }
 
-    //% blockId="GROVE_I2C_LCD1620_SET_CURSOR" block="[Grove] set cursor at |x %x |y %y"
+    //% blockId="GROVE_I2C_LCD1620_CLEAR_DISPLAY" block="[LCD] clear display"
     //% weight=90 blockGap=8
-    //% x.min=0 x.max=15
-    //% y.min=0 y.max=1
-    export function setCursor(x: number, y: number): void {
-        //let buf2 = Buffer.create(2)
-
-        if (y == 0)
-            x = x | 0x80
-        else
-            x = x | 0xc0
-
-        //buf2 = Buffer.fromArray([0x80, x])
-        //pins.i2cWriteBuffer(i2cAddr, buf2, false)
-        smbus.writeByte(i2cAddr, 0x80, x)
+    export function clearDisplay(): void {
+        smbus.writeByte(i2cAddr, 0x80, 0x01)
+        basic.pause(2) // Attente > 1.53ms
     }
 
     /**
@@ -124,16 +105,20 @@ namespace GROVE_I2C_LCD1602 {
          * @param x is LCD column position, [0 - 15], eg: 0
          * @param y is LCD row position, [0 - 1], eg: 0
          */
-    //% blockId="GROVE_I2C_LCD1620_SHOW_STRING" block="[Grove] show string %s"
+    //% blockId="GROVE_I2C_LCD1620_SHOW_STRING" block="[LCD] show string $s at |x $x |y $y"
+    //% s.defl="Hello"
+    //% x.min=0 x.max=15
+    //% y.min=0 y.max=1
     //% weight=90 blockGap=8
-    export function showString(s: string): void {
-        //let buf2 = Buffer.create(2)
+    export function showString(s: string, x: number, y: number): void {
+    
+        // Set cursor
+        if (y == 0) x |= 0x80; else x |= 0xc0
+        smbus.writeByte(i2cAddr, 0x80, x)
 
+        // Display string characters
         for (let i = 0; i < s.length; i++) {
-            //buf2 = Buffer.fromArray([0x40, s.charCodeAt(i)])
-            //pins.i2cWriteBuffer(i2cAddr, buf2, false)
             smbus.writeByte(i2cAddr, 0x40, s.charCodeAt(i))
-
         }
     }
 
