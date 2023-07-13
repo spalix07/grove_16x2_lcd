@@ -60,7 +60,7 @@ namespace smbus {
 /**
  * Custom blocks
  */
-//% weight=20 color=#AA00AA icon="\uf108"
+//% weight=20 color=#FF8800 icon="\uf108"
 namespace GROVE_I2C_LCD1602 {
  
     let i2cAddr: number // 0x3E par défaut
