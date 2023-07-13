@@ -43,7 +43,6 @@ namespace I2C_LCD1602 {
     }
 
   
-
     /**
      * initial LCD, set I2C address. Address is 62 (0x3e)
      * @param Addr is i2c address for LCD, eg: 62. 
