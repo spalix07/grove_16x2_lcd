@@ -1,5 +1,6 @@
 {
     "name": "Grove_16x2_LCD",
+    "version": "1.0.0",
     "description": "",
     "dependencies": {
         "core": "*",
