@@ -102,30 +102,48 @@ namespace GROVE_I2C_LCD1602 {
     }
 
 
-    /**
-         * Render a boolean as a on/off toggle
-         */
-    //% block="[LCD] turn $on"
-    //% on.shadow="toggleOnOff"
-    export function onOff(on: boolean): void {
+    //% blockId="GROVE_I2C_LCD1602_DISPLAY_ONOFF" block="[LCD] display $on"
+    //% on.shadow=toggleOnOff
+    //% on.defl=true
+    export function displayOnOff(on: boolean): void {
+        if (on) regCTRL |= 0x04; else regCTRL &= ~0x04
+        smbus.writeByte(i2cAddr, 0x80, 0x08|regCTRL)
+        basic.pause(1) // Attente > 39us
     }
 
-    /**
-     * turn on/off LCD
-     */
-    //% blockId="GROVE_I2C_LCD1602_TURN_DISPLAY_ONOFF" block="[LCD] turn display $displayState"
-    //% displayState.shadow = "toggleOnOff"
-    //% shim=displayOnOff
-   /*
-    export function displayOnOff(displayState: boolean): void {
-        if (displayState)
-            regCTRL |= 0x04
-        else
-            regCTRL &= ~0x04
-        
+    //% blockId="GROVE_I2C_LCD1602_CURSOR_ONOFF" block="[LCD] cursor $on"
+    //% on.shadow=toggleOnOff
+    //% on.defl=true
+    export function cursorOnOff(on: boolean): void {
+        if (on) regCTRL |= 0x02; else regCTRL &= ~0x02
         smbus.writeByte(i2cAddr, 0x80, 0x08|regCTRL)
+        basic.pause(1) // Attente > 39us
     }
-*/
+
+    //% blockId="GROVE_I2C_LCD1602_CURSOR_BLINK_ONOFF" block="[LCD] cursor blink $on"
+    //% on.shadow=toggleOnOff
+    //% on.defl=true
+    export function cursorBlinkOnOff(on: boolean): void {
+        if (on) regCTRL |= 0x01; else regCTRL &= ~0x01
+        smbus.writeByte(i2cAddr, 0x80, 0x08|regCTRL)
+        basic.pause(1) // Attente > 39us
+    }
+
+
+    /**
+         * set cursor at given position
+         * @param x is LCD column position, [0 - 15], eg: 0
+         * @param y is LCD row position, [0 - 1], eg: 0
+         */
+    //% blockId="GROVE_I2C_LCD1620_SET_CURSOR_POSITION" block="[LCD] set cursor position at |x $x |y $y"
+    //% x.min=0 x.max=15
+    //% y.min=0 y.max=1
+    export function setCursorPosition(x: number, y: number): void {
+        if (y == 0) x |= 0x80; else x |= 0xc0
+        smbus.writeByte(i2cAddr, 0x80, x)
+        basic.pause(1) // Attente > 39us
+    }
+
 
     /**
          * show a string in LCD at given position
@@ -138,10 +156,9 @@ namespace GROVE_I2C_LCD1602 {
     //% x.min=0 x.max=15
     //% y.min=0 y.max=1
     export function showString(s: string, x: number, y: number): void {
-        // Set cursor
-        if (y == 0) x |= 0x80; else x |= 0xc0
-        smbus.writeByte(i2cAddr, 0x80, x)
-
+        // Set cursor position
+        setCursorPosition(x,y)
+        
         // Display string characters
         for (let i = 0; i < s.length; i++) {
             smbus.writeByte(i2cAddr, 0x40, s.charCodeAt(i))
@@ -156,7 +173,8 @@ namespace GROVE_I2C_LCD1602 {
          */
     //% blockId="GROVE_I2C_LCD1602_SHOW_NUMBER" block="[LCD] show number $n at |x $x |y $y"
     //% x.min=0 x.max=15
-    //% y.min=0 y.max=1    
+    //% y.min=0 y.max=1
+    //% n.defl=0 
     export function ShowNumber(n: number, x: number, y: number): void {
         let s = n.toString()
         showString(s, x, y)
