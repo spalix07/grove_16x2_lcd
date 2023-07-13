@@ -63,6 +63,7 @@ namespace smbus {
 //% weight=20 color=#AA00AA icon="\uf108"
 namespace GROVE_I2C_LCD1602 {
     let i2cAddr: number // 0x3E par défaut
+    let regCTRL: number // Registre Control LCD (Display ON/OFF, Cursor ON/OFF, Blink ON/OFF)
 
     /**
      * initialize LCD, set I2C address : Address is 62 (0x3e)
@@ -80,7 +81,8 @@ namespace GROVE_I2C_LCD1602 {
         basic.pause(1) // Attente > 39us
 
         // Display ON, Cursor ON, Blink OFF
-        smbus.writeByte(i2cAddr, 0x80, 0x08|0x04|0x02|0x00)
+        regCTRL = 0x04|0x02|0x00
+        smbus.writeByte(i2cAddr, 0x80, 0x08|regCTRL)
         basic.pause(1) // Attente > 39us
 
         // Clear display
@@ -98,6 +100,26 @@ namespace GROVE_I2C_LCD1602 {
         smbus.writeByte(i2cAddr, 0x80, 0x01)
         basic.pause(2) // Attente > 1.53ms
     }
+
+    /**
+     * turn on/off LCD
+     */
+    //% blockId="GROVE_I2C_LCD1620_TURN_ONOFF" block="[LCD] turn on/off"
+    //% displayState.shadow = toggleOnOff
+    //% displayState.defl=true
+    //% weight=80 blockGap=8
+    export function turnDisplayOnOff(displayState: boolean): void {
+        if (displayState)
+            regCTRL |= 0x04
+        else
+            regCTRL &= ~0x04
+        
+        smbus.writeByte(i2cAddr, 0x80, 0x08|regCTRL)
+    }
+
+
+
+
 
     /**
          * show a string in LCD at given position
@@ -121,6 +143,22 @@ namespace GROVE_I2C_LCD1602 {
             smbus.writeByte(i2cAddr, 0x40, s.charCodeAt(i))
         }
     }
+
+    /**
+         * show a number in LCD at given position
+         * @param n is number will be show, eg: 10, 100, 200
+         * @param x is LCD column position, eg: 0
+         * @param y is LCD row position, eg: 0
+         */
+    //% blockId="GROVE_I2C_LCD1620_SHOW_NUMBER" block="[LCD] show number $n at |x $x |y $y"
+    //% weight=90 blockGap=8
+    //% x.min=0 x.max=15
+    //% y.min=0 y.max=1
+    export function ShowNumber(n: number, x: number, y: number): void {
+        let s = n.toString()
+        showString(s, x, y)
+    }
+
 
 
 }
