@@ -1,5 +1,5 @@
 {
-    "name": "Afficheur_LCD16x2",
+    "name": "AfficheurLCD16x2",
     "version": "1.0.0",
     "description": "",
     "dependencies": {
@@ -8,7 +8,6 @@
         "microphone": "*"
     },
     "files": [
-        "README.md",
         "grove_LCD1602.ts"
     ],
     "testFiles": [

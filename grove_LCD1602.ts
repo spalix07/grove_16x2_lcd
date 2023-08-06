@@ -171,7 +171,7 @@ namespace AfficheurLcd16x2 {
          * @param x = Colonne LCD, [0 - 15], ex: 0
          * @param y = Ligne LCD, [0 - 1], ex: 0
          */
-    //% blockId="GROVE_I2C_LCD1602_SHOW_NUMBER" block="[LCD] Afficher nombre $n à |x: $x |y: $y"
+    //% blockId="GROVE_I2C_LCD1602_SHOW_NUMBER" block="[LCD] Afficher nombre $n à  |x: $x |y: $y"
     //% x.min=0 x.max=15
     //% y.min=0 y.max=1
     //% n.defl=0 
