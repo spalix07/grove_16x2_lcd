@@ -135,7 +135,7 @@ namespace AfficheurLcd16x2 {
          * @param x = Colonne LCD, [0 - 15], ex: 0
          * @param y = Ligne LCD, [0 - 1], ex: 0
          */
-    //% blockId="GROVE_I2C_LCD1620_SET_CURSOR_POSITION" block="[LCD] Définir position curseur à |x: $x |y: $y"
+    //% blockId="GROVE_I2C_LCD1602_SET_CURSOR_POSITION" block="[LCD] Définir position curseur à  |x: $x |y: $y"
     //% x.min=0 x.max=15
     //% y.min=0 y.max=1
     export function LCD_setCursorPosition(x: number, y: number): void {
@@ -151,7 +151,7 @@ namespace AfficheurLcd16x2 {
          * @param x = Colonne LCD, [0 - 15], ex: 0
          * @param y = Ligne LCD, [0 - 1], ex: 0
          */
-    //% blockId="GROVE_I2C_LCD1620_SHOW_STRING" block="[LCD] Afficher texte $s à |x: $x |y: $y"
+    //% blockId="GROVE_I2C_LCD1620_SHOW_STRING" block="[LCD] Afficher texte $s à  |x: $x |y: $y"
     //% s.defl="Hello"
     //% x.min=0 x.max=15
     //% y.min=0 y.max=1
