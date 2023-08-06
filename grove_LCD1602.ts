@@ -61,7 +61,7 @@ namespace smbus {
  * Custom blocks
  */
 //% weight=20 color=#0080FF icon="\uf108"
-namespace GROVE_I2C_LCD1602 {
+namespace Afficheur_LCD16x2 {
  
     let i2cAddr: number // 0x3E par défaut
     let regCTRL: number // Registre Control LCD (Display ON/OFF, Cursor ON/OFF, Blink ON/OFF)

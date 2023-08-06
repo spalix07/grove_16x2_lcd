@@ -1,5 +1,5 @@
 {
-    "name": "Grove_16x2_LCD",
+    "name": "Afficheur_LCD16x2",
     "version": "1.0.0",
     "description": "",
     "dependencies": {
