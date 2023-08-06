@@ -103,7 +103,7 @@ namespace Afficheur_LCD16x2 {
 
 
     //% blockId="GROVE_I2C_LCD1602_DISPLAY_ONOFF" block="[LCD] Définir état $on"
-    //% on.shadow=toggleOnOff
+    //% on.shadow="toggleOnOff"
     //% on.defl=true
     export function LCD_displayOnOff(on: boolean): void {
         if (on) regCTRL |= 0x04; else regCTRL &= ~0x04
