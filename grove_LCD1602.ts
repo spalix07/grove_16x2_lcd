@@ -112,7 +112,7 @@ namespace Afficheur_LCD16x2 {
     }
 
     //% blockId="GROVE_I2C_LCD1602_CURSOR_ONOFF" block="[LCD] Curseur $on"
-    //% on.shadow=toggleOnOff
+    //% on.shadow="toggleOnOff"
     //% on.defl=true
     export function LCD_cursorOnOff(on: boolean): void {
         if (on) regCTRL |= 0x02; else regCTRL &= ~0x02
@@ -121,7 +121,7 @@ namespace Afficheur_LCD16x2 {
     }
 
     //% blockId="GROVE_I2C_LCD1602_CURSOR_BLINK_ONOFF" block="[LCD] Clignotement curseur $on"
-    //% on.shadow=toggleOnOff
+    //% on.shadow="toggleOnOff"
     //% on.defl=true
     export function LCD_cursorBlinkOnOff(on: boolean): void {
         if (on) regCTRL |= 0x01; else regCTRL &= ~0x01
@@ -132,8 +132,8 @@ namespace Afficheur_LCD16x2 {
 
     /**
          * set cursor at given position
-         * @param x is LCD column position, [0 - 15], eg: 0
-         * @param y is LCD row position, [0 - 1], eg: 0
+         * @param x = Colonne LCD, [0 - 15], ex: 0
+         * @param y = Ligne LCD, [0 - 1], ex: 0
          */
     //% blockId="GROVE_I2C_LCD1620_SET_CURSOR_POSITION" block="[LCD] Définir position curseur à |x $x |y $y"
     //% x.min=0 x.max=15
@@ -147,11 +147,11 @@ namespace Afficheur_LCD16x2 {
 
     /**
          * show a string in LCD at given position
-         * @param s is string will be show, eg: "Hello"
-         * @param x is LCD column position, [0 - 15], eg: 0
-         * @param y is LCD row position, [0 - 1], eg: 0
+         * @param s = Chaine à afficher ex: "Hello"
+         * @param x = Colonne LCD, [0 - 15], ex: 0
+         * @param y = Ligne LCD, [0 - 1], ex: 0
          */
-    //% blockId="GROVE_I2C_LCD1620_SHOW_STRING" block="[LCD] show string $s at |x $x |y $y"
+    //% blockId="GROVE_I2C_LCD1620_SHOW_STRING" block="[LCD] Afficher texte $s à |x $x |y $y"
     //% s.defl="Hello"
     //% x.min=0 x.max=15
     //% y.min=0 y.max=1
@@ -167,11 +167,11 @@ namespace Afficheur_LCD16x2 {
 
     /**
          * show a number in LCD at given position
-         * @param n is number will be show, eg: 10, 100, 200
-         * @param x is LCD column position, eg: 0
-         * @param y is LCD row position, eg: 0
+         * @param n = nombre à afficher, ex: 10, 100, 200
+         * @param x = Colonne LCD, [0 - 15], ex: 0
+         * @param y = Ligne LCD, [0 - 1], ex: 0
          */
-    //% blockId="GROVE_I2C_LCD1602_SHOW_NUMBER" block="[LCD] show number $n at |x $x |y $y"
+    //% blockId="GROVE_I2C_LCD1602_SHOW_NUMBER" block="[LCD] Afficher nombre $n à |x $x |y $y"
     //% x.min=0 x.max=15
     //% y.min=0 y.max=1
     //% n.defl=0 
