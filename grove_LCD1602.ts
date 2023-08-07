@@ -96,12 +96,19 @@ namespace AfficheurLcd16x2 {
         smbus.sm_writeByte(i2cAddr, 0x80, 0x04|0x02|0x00)
     }
 
+    /**
+    * Efface l'écran de l'afficheur LCD (affiche des espaces sur les 2 lignes)
+    */
     //% blockId="GROVE_I2C_LCD1602_CLEAR_DISPLAY" block="[LCD] Effacer écran"
     export function LCD_clearDisplay(): void {
         smbus.sm_writeByte(i2cAddr, 0x80, 0x01)
         basic.pause(2) // Attente > 1.53ms
     }
 
+    /**
+    * Efface la ligne donnée en paramètre (0 ou 1) de l'afficheur LCD
+    * @param line : Ligne à effacer (0 ou 1)
+    */
     //% blockId="GROVE_I2C_LCD1602_CLEAR_LINE" block="[LCD] Effacer ligne $line"
     //% line.min=0 line.max=1
     export function LCD_clearLine(line: number): void {
@@ -110,7 +117,11 @@ namespace AfficheurLcd16x2 {
 
     }
 
-    //% blockId="GROVE_I2C_LCD1602_DISPLAY_ONOFF" block="[LCD] Définir état afficheur $on"
+    /**
+    * Active/désactive l'écran de l'afficheur LCD
+    * @param on : état ON/OFF
+    */
+    //% blockId="GROVE_I2C_LCD1602_DISPLAY_ONOFF" block="[LCD] Définir état écran $on"
     //% on.shadow="toggleOnOff"
     //% on.defl=true
     export function LCD_displayOnOff(on: boolean): void {
@@ -119,6 +130,10 @@ namespace AfficheurLcd16x2 {
         basic.pause(1) // Attente > 39us
     }
 
+    /**
+    * Active/désactive le curseur
+    * @param on : état ON/OFF
+    */
     //% blockId="GROVE_I2C_LCD1602_CURSOR_ONOFF" block="[LCD] Définir état curseur $on"
     //% on.shadow="toggleOnOff"
     //% on.defl=true
@@ -128,6 +143,10 @@ namespace AfficheurLcd16x2 {
         basic.pause(1) // Attente > 39us
     }
 
+    /**
+    * Active/désactive le clignotement du curseur
+    * @param on : état ON/OFF
+    */
     //% blockId="GROVE_I2C_LCD1602_CURSOR_BLINK_ONOFF" block="[LCD] Définir état clignotement curseur $on"
     //% on.shadow="toggleOnOff"
     //% on.defl=true
@@ -139,10 +158,10 @@ namespace AfficheurLcd16x2 {
 
 
     /**
-         * set cursor at given position
-         * @param x = Colonne LCD, [0 - 15], ex: 0
-         * @param y = Ligne LCD, [0 - 1], ex: 0
-         */
+    * Définit la position du curseur à l'écran
+    * @param x = Colonne LCD, [0 - 15], ex: 0
+    * @param y = Ligne LCD, [0 - 1], ex: 0
+    */
     //% blockId="GROVE_I2C_LCD1602_SET_CURSOR_POSITION" block="[LCD] Définir position curseur à  |x: $x |y: $y"
     //% x.min=0 x.max=15
     //% y.min=0 y.max=1
@@ -154,11 +173,11 @@ namespace AfficheurLcd16x2 {
 
 
     /**
-         * show a string in LCD at given position
-         * @param s = Chaine à afficher ex: "Hello"
-         * @param x = Colonne LCD, [0 - 15], ex: 0
-         * @param y = Ligne LCD, [0 - 1], ex: 0
-         */
+    * Affiche une chaîne de caracatères à l'écran, à une position donnée (colonne, ligne)
+    * @param s = Chaine à afficher ex: "Hello"
+    * @param x = Colonne LCD, [0 - 15], ex: 0
+    * @param y = Ligne LCD, [0 - 1], ex: 0
+    */
     //% blockId="GROVE_I2C_LCD1620_SHOW_STRING" block="[LCD] Afficher texte $s à  |x: $x |y: $y"
     //% s.defl="Hello"
     //% x.min=0 x.max=15
@@ -174,11 +193,11 @@ namespace AfficheurLcd16x2 {
     }
 
     /**
-         * show a number in LCD at given position
-         * @param n = nombre à afficher, ex: 10, 100, 200
-         * @param x = Colonne LCD, [0 - 15], ex: 0
-         * @param y = Ligne LCD, [0 - 1], ex: 0
-         */
+    * Affiche un nombre à l'écran, à une position donnée (colonne, ligne)
+    * @param n = nombre à afficher, ex: 10, 100, 200
+    * @param x = Colonne LCD, [0 - 15], ex: 0
+    * @param y = Ligne LCD, [0 - 1], ex: 0
+    */
     //% blockId="GROVE_I2C_LCD1602_SHOW_NUMBER" block="[LCD] Afficher nombre $n à  |x: $x |y: $y"
     //% x.min=0 x.max=15
     //% y.min=0 y.max=1
