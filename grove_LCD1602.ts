@@ -106,7 +106,7 @@ namespace AfficheurLcd16x2 {
     }
 
     /**
-    * Efface la ligne donnée en paramètre (0 ou 1) de l'afficheur LCD
+    * Efface la ligne donnée en paramètre (0 ou 1)
     * @param line : Ligne à effacer (0 ou 1)
     */
     //% blockId="GROVE_I2C_LCD1602_CLEAR_LINE" block="[LCD] Effacer ligne $line"
@@ -173,7 +173,7 @@ namespace AfficheurLcd16x2 {
 
 
     /**
-    * Affiche une chaîne de caracatères à l'écran, à une position donnée (colonne, ligne)
+    * Affiche une chaîne de caractères à l'écran, à une position donnée (colonne, ligne)
     * @param s = Chaine à afficher ex: "Hello"
     * @param x = Colonne LCD, [0 - 15], ex: 0
     * @param y = Ligne LCD, [0 - 1], ex: 0
