@@ -71,6 +71,7 @@ namespace AfficheurLcd16x2 {
      * @param Addr : adresse I2C de l'afficheur LCD,  ex: 62
      */
     //% blockId="GROVE_I2C_LCD1602_SET_ADDRESS" block="[LCD] Initialiser || avec adresse I2C $Addr"
+    //% expandableArgumentMode="toggle"
     //% Addr.defl=0x3e
     //% weight=100 blockGap=8
     export function LCD_init(Addr: number) {
