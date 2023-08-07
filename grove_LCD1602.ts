@@ -101,6 +101,13 @@ namespace AfficheurLcd16x2 {
         basic.pause(2) // Attente > 1.53ms
     }
 
+    //% blockId="GROVE_I2C_LCD1602_CLEAR_LINE" block="[LCD] Effacer ligne $line"
+    //% line.min=0 line.max=1
+    export function LCD_clearLine(line: number): void {
+        let s = "                "
+        LCD_showString(s, 0, line)
+
+    }
 
     //% blockId="GROVE_I2C_LCD1602_DISPLAY_ONOFF" block="[LCD] Définir état afficheur $on"
     //% on.shadow="toggleOnOff"

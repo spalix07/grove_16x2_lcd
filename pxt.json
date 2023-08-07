@@ -1,5 +1,5 @@
 {
-    "name": "AfficheurLCD16x2",
+    "name": "Extension-AfficheurLCD16x2",
     "version": "1.0.0",
     "description": "",
     "dependencies": {
