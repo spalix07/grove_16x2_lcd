@@ -118,10 +118,10 @@ namespace AfficheurLcd16x2 {
     }
 
     /**
-    * Active/désactive l'écran de l'afficheur LCD
+    * Active/désactive l'affichage
     * @param on : état ON/OFF
     */
-    //% blockId="GROVE_I2C_LCD1602_DISPLAY_ONOFF" block="[LCD] Définir état écran $on"
+    //% blockId="GROVE_I2C_LCD1602_DISPLAY_ONOFF" block="[LCD] Définir état affichage $on"
     //% on.shadow="toggleOnOff"
     //% on.defl=true
     export function LCD_displayOnOff(on: boolean): void {
