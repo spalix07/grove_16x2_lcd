@@ -74,7 +74,7 @@ namespace AfficheurLcd16x2 {
     //% expandableArgumentMode="toggle"
     //% Addr.defl=0x3e
     //% weight=100 blockGap=8
-    export function LCD_init(Addr: number) {
+    export function LCD_init(Addr?: number) {
         i2cAddr = Addr
 
         basic.pause(20) // Attente > 15ms
